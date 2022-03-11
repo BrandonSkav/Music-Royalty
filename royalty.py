@@ -1,4 +1,5 @@
 import csv
+import sys
 import pandas as pd
 import re
 import spotipy
@@ -9,13 +10,14 @@ from itertools import combinations
 
 d = discogs_client.Client('ReleaseDateProject', user_token='AauEetKJPOXvRmEgaxzrvqdGTexBTPkHJSsvGaew')
 
+arg = " ".join(sys.argv[1:])
 songs = {}
 releaseDates = {}
 writerData = {}
-file = open('excels/2018 06 30_AMRA_Jeberg - (01 April 2018-30 June 2018) - Copy.csv')
+file = open(arg)
 fileCSV = csv.reader(file)
-df = pd.read_csv('excels/2018 06 30_AMRA_Jeberg - (01 April 2018-30 June 2018) - Copy.csv')
-filtered_df = pd.read_csv('excels/2018 06 30_AMRA_Jeberg - (01 April 2018-30 June 2018) - Copy.csv', usecols=['WORK_TITLE', 'WRITERS'])
+df = pd.read_csv(arg)
+filtered_df = pd.read_csv(arg, usecols=['WORK_TITLE', 'WRITERS'])
 
 for rows in range(len(filtered_df)):
     temp = filtered_df.loc[rows, "WORK_TITLE"]
@@ -151,4 +153,4 @@ with open('FullSongDatabase.csv', 'w') as f:
 df2 = df.copy()
 df2["Release Dates"] = releaseList
 print(df2)
-df2.to_csv('FinalSheets/2018 06 30_AMRA_Jeberg - (01 April 2018-30 June 2018) - Copy WITH RELEASE DATES.csv', index=False)
+df2.to_csv('FinalSheets/WITH-RELEASE-DATES-' + arg, index=False)
