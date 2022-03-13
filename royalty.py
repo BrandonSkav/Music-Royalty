@@ -150,7 +150,9 @@ with open('FullSongDatabase.csv', 'w') as f:
     for k, v in releaseDates.items():
         writer.writerow([k, v])
 
+arg = arg.replace('/', '-')
+print(arg)
 df2 = df.copy()
-df2["Release Dates"] = releaseList
+#df2["Release Dates"] = releaseList
 print(df2)
 df2.to_csv('FinalSheets/WITH-RELEASE-DATES-' + arg, index=False)
